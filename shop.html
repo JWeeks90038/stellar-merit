@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop handcrafted cement statues - meditating dogs, owls, and more">
+    <title>Shop - Stellar Merit Statuary</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html">Stellar Merit Statuary</a>
+                </div>
+                
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html" class="active">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Collection</h1>
+            <p>Browse our handcrafted cement statues</p>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <div class="container">
+            <!-- Filter Buttons -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All Statues</button>
+                <button class="filter-btn" data-filter="dogs">Meditating Dogs</button>
+                <button class="filter-btn" data-filter="owls">Owls</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+
+            <!-- Product Gallery Grid -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Product Item 1 -->
+                <div class="gallery-item" data-category="dogs">
+                    <div class="gallery-image" data-image="images/products/meditating-dog-1.jpg">
+                        <img src="images/products/meditating-dog-1.jpg" alt="Peaceful Meditating Dog Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Peaceful Meditating Dog</h3>
+                        <p class="description">A serene cement dog statue in a meditative pose, perfect for creating a zen atmosphere in your garden or home.</p>
+                        <p class="price">$17</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 2 -->
+                <div class="gallery-item" data-category="dogs">
+                    <div class="gallery-image" data-image="images/products/meditating-dog-2.jpg">
+                        <img src="images/products/meditating-dog-2.jpg" alt="Zen Garden Dog Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Zen Garden Dog</h3>
+                        <p class="description">Handcrafted meditating dog with detailed features, bringing tranquility to any space.</p>
+                        <p class="price">$17</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 3 -->
+                <div class="gallery-item" data-category="dogs">
+                    <div class="gallery-image" data-image="images/products/meditating-dog-3.jpg">
+                        <img src="images/products/meditating-dog-3.jpg" alt="Contemplative Dog Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Contemplative Dog</h3>
+                        <p class="description">A thoughtful dog statue in lotus position, expertly crafted from durable cement.</p>
+                        <p class="price">$17</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 4 -->
+                <div class="gallery-item" data-category="owls">
+                    <div class="gallery-image" data-image="images/products/owl-1.jpg">
+                        <img src="images/products/owl-1.jpg" alt="Wise Owl Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Wise Owl Guardian</h3>
+                        <p class="description">A majestic owl statue with intricate feather details, symbolizing wisdom and protection.</p>
+                        <p class="price">$19</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 5 -->
+                <div class="gallery-item" data-category="owls">
+                    <div class="gallery-image" data-image="images/products/owl-2.jpg">
+                        <img src="images/products/owl-2.jpg" alt="Garden Owl Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Garden Owl</h3>
+                        <p class="description">Charming cement owl with expressive eyes, perfect for perching on shelves or garden ledges.</p>
+                        <p class="price">$19</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 6 -->
+                <div class="gallery-item" data-category="owls">
+                    <div class="gallery-image" data-image="images/products/owl-3.jpg">
+                        <img src="images/products/owl-3.jpg" alt="Decorative Owl Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Decorative Owl</h3>
+                        <p class="description">Beautifully detailed owl statue that adds character to any indoor or outdoor setting.</p>
+                        <p class="price">$19</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 7 -->
+                <div class="gallery-item" data-category="other">
+                    <div class="gallery-image" data-image="images/products/buddha-1.jpg">
+                        <img src="images/products/buddha-1.jpg" alt="Buddha Statue">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Peaceful Buddha</h3>
+                        <p class="description">Serene Buddha statue handcrafted in cement, bringing peace and harmony to your space.</p>
+                        <p class="price">$22</p>
+                    </div>
+                </div>
+
+                <!-- Product Item 8 -->
+                <div class="gallery-item" data-category="other">
+                    <div class="gallery-image" data-image="images/products/garden-gnome-1.jpg">
+                        <img src="images/products/garden-gnome-1.jpg" alt="Whimsical Garden Gnome">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Whimsical Garden Gnome</h3>
+                        <p class="description">Charming cement gnome with a playful expression, perfect for adding whimsy to your garden.</p>
+                        <p class="price">$18</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+            <img src="" alt="" id="lightboxImage">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDescription"></p>
+                <p class="price" id="lightboxPrice"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Stellar Merit Statuary</h3>
+                    <p>Whimsical handcrafted cement statues for every space</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <p class="social-cta">Follow us for new statues and updates!</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/stellarmerit_statuary" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            @stellarmerit_statuary
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stellar Merit Statuary. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
