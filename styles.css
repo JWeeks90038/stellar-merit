@@ -128,6 +128,74 @@ img {
 }
 
 /* ============================================
+   LOGO BANNER SECTION
+   Prominent logo display with hero content and vignette
+   ============================================ */
+.logo-banner {
+    background: radial-gradient(ellipse at center, #ffffff 0%, #e5e7eb 50%, #d1d5db 100%);
+    padding: var(--spacing-sm) 0 var(--spacing-md) 0;
+    text-align: center;
+    border-bottom: 2px solid var(--color-medium-gray);
+    position: relative;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.15);
+}
+
+.logo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.2) 80%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+}
+
+.logo-banner .container {
+    position: relative;
+    z-index: 1;
+}
+
+.logo-banner-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform var(--transition-fast);
+    margin-bottom: var(--spacing-sm);
+}
+
+.logo-banner-link:hover {
+    transform: scale(1.02);
+}
+
+.logo-banner-image {
+    height: 280px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    border-radius: 20px;
+}
+
+/* Hero Content within Logo Banner */
+.logo-banner .hero-content {
+    margin-top: 0;
+}
+
+.logo-banner .hero-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+}
+
+.logo-banner .hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============================================
    NAVIGATION BAR
    Responsive, sticky navigation
    ============================================ */
@@ -137,38 +205,14 @@ img {
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: var(--spacing-sm) 0;
+    padding: 0;
 }
 
 .nav-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-}
-
-.logo a {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-accent);
-    transition: color var(--transition-fast);
-}
-
-.logo a:hover {
-    color: var(--color-accent-light);
-}
-
-.logo img {
-    height: 50px;
-    width: auto;
-    display: block;
-}
-
-.logo span {
-    white-space: nowrap;
+    position: relative;
 }
 
 /* Mobile Menu Toggle Button */
@@ -179,6 +223,8 @@ img {
     border: none;
     cursor: pointer;
     padding: var(--spacing-xs);
+    position: absolute;
+    right: 0;
 }
 
 .mobile-menu-toggle span {
@@ -208,7 +254,6 @@ img {
 .nav-menu a:hover,
 .nav-menu a.active {
     color: var(--color-accent);
-    background-color: var(--color-light-gray);
 }
 
 /* ============================================
@@ -220,6 +265,7 @@ img {
     height: 450px;
     overflow: hidden;
     background-color: var(--color-dark-gray);
+    padding: 0;
 }
 
 /* Carousel Container */
@@ -325,28 +371,7 @@ img {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* Hero Content Section - Below Carousel */
-.hero-content-section {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-    padding: var(--spacing-md) 0;
-    text-align: center;
-    color: var(--color-white);
-}
 
-.hero-title {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-white);
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-white);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* ============================================
    BUTTONS
@@ -531,7 +556,7 @@ section {
 .page-header {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
     color: var(--color-white);
-    padding: var(--spacing-lg) 0;
+    padding: 0;
     text-align: center;
 }
 
@@ -658,6 +683,23 @@ section {
 
 .gallery-info {
     padding: var(--spacing-sm);
+}
+
+.product-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.product-title-row h3 {
+    margin-bottom: 0;
+}
+
+.product-title-row .price {
+    margin-bottom: 0;
+    white-space: nowrap;
+    margin-left: var(--spacing-sm);
 }
 
 .gallery-info h3 {
@@ -1079,13 +1121,21 @@ section {
     h2 { font-size: 1.75rem; }
     .hero-title { font-size: 2rem; }
     
-    /* Logo adjustments */
-    .logo img {
-        height: 40px;
+    /* Logo Banner adjustments */
+    .logo-banner {
+        padding: var(--spacing-xs) 0 var(--spacing-sm) 0;
     }
     
-    .logo span {
-        font-size: 1.2rem;
+    .logo-banner-image {
+        height: 130px;
+    }
+    
+    .logo-banner .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .logo-banner .hero-subtitle {
+        font-size: 1rem;
     }
     
     /* Navigation - Mobile Menu */
@@ -1123,10 +1173,6 @@ section {
     /* Hero adjustments */
     .hero-carousel {
         height: 350px;
-    }
-    
-    .hero-content-section {
-        padding: var(--spacing-sm) 0;
     }
     
     .carousel-btn {
@@ -1176,13 +1222,21 @@ section {
     .hero-title { font-size: 1.5rem; }
     .hero-subtitle { font-size: 1rem; }
     
-    /* Logo adjustments for small screens */
-    .logo img {
-        height: 35px;
+    /* Logo Banner adjustments for small screens */
+    .logo-banner {
+        padding: var(--spacing-xs) 0 var(--spacing-sm) 0;
     }
     
-    .logo span {
-        font-size: 1rem;
+    .logo-banner-image {
+        height: 100px;
+    }
+    
+    .logo-banner .hero-title {
+        font-size: 1.25rem;
+    }
+    
+    .logo-banner .hero-subtitle {
+        font-size: 0.9rem;
     }
     
     /* Spacing adjustments */
