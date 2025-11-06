@@ -24,6 +24,14 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+
+                <!-- Cart Icon -->
+                <button class="cart-icon" id="cartIcon" aria-label="Shopping cart">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -73,6 +81,13 @@
                             <p class="price">$19</p>
                         </div>
                         <p class="description">A serene cement dog statue in a meditative pose, perfect for creating a zen atmosphere in your garden or home.</p>
+                        <button class="btn btn-primary add-to-cart-btn" 
+                                data-id="1" 
+                                data-name="Zen Meditating Dog" 
+                                data-price="19"
+                                data-image="images/products/meditating-dog-1.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
 
@@ -90,12 +105,38 @@
                             <p class="price">$22</p>
                         </div>
                         <p class="description">A majestic owl statue with intricate feather details, symbolizing wisdom and protection.</p>
+                        <button class="btn btn-primary add-to-cart-btn" 
+                                data-id="2" 
+                                data-name="Wise Owl Guardian" 
+                                data-price="22"
+                                data-image="images/products/owl-1.jpg">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount" id="totalAmount">$0</span>
+            </div>
+            <button class="btn btn-primary checkout-btn">Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
 
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
