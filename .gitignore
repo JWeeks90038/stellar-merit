@@ -17,6 +17,13 @@ desktop.ini
 # Node modules (if you add any build tools later)
 node_modules/
 
-# Environment files
+# Environment files (CONTAINS STRIPE SECRET KEYS - NEVER COMMIT!)
 .env
 .env.local
+.env.production
+.env.development
+.env.*.local
+
+# Stripe-related files
+stripe-webhook-secret.txt
+stripe-keys.txt

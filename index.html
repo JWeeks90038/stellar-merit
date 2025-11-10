@@ -6,6 +6,7 @@
     <meta name="description" content="Stellar Merit Statuary - Whimsical Handcrafted Cement Statues">
     <title>Stellar Merit Statuary - Home</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <!-- Navigation Menu -->
@@ -56,7 +57,14 @@
     <section class="hero-carousel">
         <div class="carousel">
             <!-- Carousel Slides -->
-            <div class="carousel-slide active">
+             <div class="carousel-slide active">
+                <img src="images/hero/lion-1.jpg" alt="Handcrafted Majestic Lion Statue">
+                <div class="carousel-caption">
+                    <h2>Majestic Guardian Lions</h2>
+                    <p>Handcrafted majestic lion statues</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
                 <img src="images/hero/meditating-dog-1.jpg" alt="Handcrafted Meditating Dog Statue">
                 <div class="carousel-caption">
                     <h2>Zen Garden Companions</h2>
@@ -64,14 +72,14 @@
                 </div>
             </div>
             <div class="carousel-slide">
-                <img src="images/hero/owl-1.jpg" alt="Handcrafted Owl Statue">
+                <img src="images/hero/owls-1.jpg" alt="Handcrafted Owl Statue">
                 <div class="carousel-caption">
                     <h2>Wise Garden Guardians</h2>
                     <p>Beautifully detailed owl statues</p>
                 </div>
             </div>
             <div class="carousel-slide">
-                <img src="images/hero/collection.jpg" alt="Stellar Merit Statuary Collection">
+                <img src="images/hero/owls-2.jpg" alt="Stellar Merit Statuary Collection">
                 <div class="carousel-caption">
                     <h2>Whimsical Artistry</h2>
                     <p>Each piece uniquely handcrafted</p>
@@ -87,6 +95,7 @@
                 <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
                 <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
                 <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+                <button class="indicator" data-slide="3" aria-label="Slide 4"></button>
             </div>
         </div>
     </section>
@@ -98,7 +107,32 @@
             <p class="section-subtitle">Handcrafted with care, each statue is one-of-a-kind</p>
             
             <div class="product-grid">
-                <!-- Product Card 1 -->
+              <!-- Product Card 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/products/lion-2.jpg" alt="Majestic Guardian Lion">
+                        <div class="product-overlay">
+                            <a href="shop.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title-row">
+                            <h3>Majestic Guardian Lion</h3>
+                            <p class="price">$125</p>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn" 
+                                data-id="1" 
+                                data-name="Majestic Guardian Lion" 
+                                data-price="125"
+                                data-price-id="prod_TOpnbfufGFr9w2"
+                                data-shipping-id="shr_YOUR_SHIPPING_RATE_ID_HERE_1"
+                                data-image="images/products/lion-2.jpg">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+              
+                <!-- Product Card 2 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="images/products/meditating-dog-1.jpg" alt="Meditating Dog Statue">
@@ -112,19 +146,21 @@
                             <p class="price">$19</p>
                         </div>
                         <button class="btn btn-primary add-to-cart-btn" 
-                                data-id="1" 
+                                data-id="2" 
                                 data-name="Zen Meditating Dog" 
                                 data-price="19"
+                                data-price-id="prod_TOomiCsY1CxRSy"
+                                data-shipping-id="shr_1SS19WPJjyPRgJad3vRa9087"
                                 data-image="images/products/meditating-dog-1.jpg">
                             Add to Cart
                         </button>
                     </div>
                 </div>
                 
-                <!-- Product Card 2 -->
+                <!-- Product Card 3 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="images/products/owl-1.jpg" alt="Wise Owl Statue">
+                        <img src="images/products/owls-1.jpg" alt="Wise Owl Statue">
                         <div class="product-overlay">
                             <a href="shop.html" class="btn btn-secondary">View Details</a>
                         </div>
@@ -135,10 +171,12 @@
                             <p class="price">$22</p>
                         </div>
                         <button class="btn btn-primary add-to-cart-btn" 
-                                data-id="2" 
+                                data-id="3" 
                                 data-name="Wise Owl Guardian" 
                                 data-price="22"
-                                data-image="images/products/owl-1.jpg">
+                                data-price-id="prod_TOnYvvBkNNp4H0"
+                                data-shipping-id="shr_1SS19WPJjyPRgJad3vRa9087"
+                                data-image="images/products/owls-1.jpg">
                             Add to Cart
                         </button>
                     </div>

@@ -124,7 +124,13 @@ class Lightbox {
         this.lightboxTitle = document.getElementById('lightboxTitle');
         this.lightboxDescription = document.getElementById('lightboxDescription');
         this.lightboxPrice = document.getElementById('lightboxPrice');
+        this.lightboxThumbnails = document.getElementById('lightboxThumbnails');
         this.closeBtn = document.querySelector('.lightbox-close');
+        this.prevBtn = document.getElementById('lightboxPrev');
+        this.nextBtn = document.getElementById('lightboxNext');
+        
+        this.currentImages = [];
+        this.currentImageIndex = 0;
         
         // Only initialize if lightbox exists
         if (this.lightbox) {
@@ -147,43 +153,148 @@ class Lightbox {
             this.closeBtn.addEventListener('click', () => this.close());
         }
         
-        // Close when clicking outside the image
+        // Navigation buttons
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => this.previousImage());
+        }
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => this.nextImage());
+        }
+        
+        // Close when clicking outside the content
         this.lightbox.addEventListener('click', (e) => {
             if (e.target === this.lightbox) {
                 this.close();
             }
         });
         
-        // Close with Escape key
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.lightbox.classList.contains('active')) {
-                this.close();
+            if (this.lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    this.close();
+                } else if (e.key === 'ArrowLeft') {
+                    this.previousImage();
+                } else if (e.key === 'ArrowRight') {
+                    this.nextImage();
+                }
             }
         });
     }
     
     open(galleryItem) {
         // Get data from gallery item
-        const imageSrc = galleryItem.querySelector('.gallery-image img').src;
         const title = galleryItem.querySelector('.gallery-info h3').textContent;
         const description = galleryItem.querySelector('.description').textContent;
         const price = galleryItem.querySelector('.price').textContent;
         
+        // Get images array from data attribute
+        const imagesData = galleryItem.getAttribute('data-images');
+        if (imagesData) {
+            try {
+                this.currentImages = JSON.parse(imagesData);
+            } catch (e) {
+                // Fallback to single image
+                this.currentImages = [galleryItem.querySelector('.gallery-image img').src];
+            }
+        } else {
+            // Fallback to single image if no data-images attribute
+            this.currentImages = [galleryItem.querySelector('.gallery-image img').src];
+        }
+        
+        this.currentImageIndex = 0;
+        
         // Set lightbox content
-        this.lightboxImage.src = imageSrc;
-        this.lightboxImage.alt = title;
         this.lightboxTitle.textContent = title;
         this.lightboxDescription.textContent = description;
         this.lightboxPrice.textContent = price;
+        
+        // Display main image and thumbnails
+        this.displayImage();
+        this.createThumbnails();
+        
+        // Show/hide navigation buttons
+        this.updateNavigationButtons();
         
         // Show lightbox
         this.lightbox.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
     
+    displayImage() {
+        if (this.currentImages.length > 0) {
+            this.lightboxImage.src = this.currentImages[this.currentImageIndex];
+            this.lightboxImage.alt = this.lightboxTitle.textContent;
+        }
+    }
+    
+    createThumbnails() {
+        if (!this.lightboxThumbnails) return;
+        
+        this.lightboxThumbnails.innerHTML = '';
+        
+        this.currentImages.forEach((imageSrc, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = imageSrc;
+            thumbnail.className = 'lightbox-thumbnail';
+            if (index === this.currentImageIndex) {
+                thumbnail.classList.add('active');
+            }
+            
+            thumbnail.addEventListener('click', () => {
+                this.currentImageIndex = index;
+                this.displayImage();
+                this.updateThumbnails();
+            });
+            
+            this.lightboxThumbnails.appendChild(thumbnail);
+        });
+    }
+    
+    updateThumbnails() {
+        if (!this.lightboxThumbnails) return;
+        
+        const thumbnails = this.lightboxThumbnails.querySelectorAll('.lightbox-thumbnail');
+        thumbnails.forEach((thumb, index) => {
+            if (index === this.currentImageIndex) {
+                thumb.classList.add('active');
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+    }
+    
+    updateNavigationButtons() {
+        if (this.currentImages.length <= 1) {
+            if (this.prevBtn) this.prevBtn.style.display = 'none';
+            if (this.nextBtn) this.nextBtn.style.display = 'none';
+        } else {
+            if (this.prevBtn) this.prevBtn.style.display = 'flex';
+            if (this.nextBtn) this.nextBtn.style.display = 'flex';
+        }
+    }
+    
+    previousImage() {
+        if (this.currentImages.length > 1) {
+            this.currentImageIndex = (this.currentImageIndex - 1 + this.currentImages.length) % this.currentImages.length;
+            this.displayImage();
+            this.updateThumbnails();
+        }
+    }
+    
+    nextImage() {
+        if (this.currentImages.length > 1) {
+            this.currentImageIndex = (this.currentImageIndex + 1) % this.currentImages.length;
+            this.displayImage();
+            this.updateThumbnails();
+        }
+    }
+    
     close() {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = ''; // Re-enable scrolling
+        this.currentImages = [];
+        this.currentImageIndex = 0;
     }
 }
 
@@ -542,6 +653,8 @@ class ShoppingCart {
                     id: button.getAttribute('data-id'),
                     name: button.getAttribute('data-name'),
                     price: parseFloat(button.getAttribute('data-price')),
+                    priceId: button.getAttribute('data-price-id'),
+                    shippingId: button.getAttribute('data-shipping-id'),
                     image: button.getAttribute('data-image')
                 };
                 this.addToCart(productData);
@@ -709,20 +822,73 @@ class ShoppingCart {
         }
     }
     
-    checkout() {
+    async checkout() {
         if (this.cart.length === 0) {
             alert('Your cart is empty!');
             return;
         }
         
-        // In a real application, this would redirect to a checkout page
-        alert('Checkout functionality would be implemented here. Total: ' + this.totalAmount.textContent);
+        // Check if Stripe is loaded
+        if (typeof Stripe === 'undefined') {
+            alert('Payment system is loading. Please try again in a moment.');
+            return;
+        }
         
-        // For demo purposes, clear cart
-        // this.cart = [];
-        // this.saveCart();
-        // this.updateCartDisplay();
-        // this.closeCart();
+        // Prepare line items for Stripe using Price IDs
+        const lineItems = this.cart.map(item => ({
+            price: item.priceId, // Use the Stripe Price ID
+            quantity: item.quantity,
+        }));
+        
+        // Collect all unique shipping rate IDs from the cart
+        const shippingRates = [...new Set(this.cart.map(item => item.shippingId).filter(id => id))];
+        
+        try {
+            // Show loading state
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            const originalText = checkoutBtn.textContent;
+            checkoutBtn.textContent = 'Processing...';
+            checkoutBtn.disabled = true;
+            
+            // Call backend to create checkout session
+            const response = await fetch('http://localhost:3000/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    lineItems: lineItems,
+                    shippingRates: shippingRates,
+                }),
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to create checkout session');
+            }
+            
+            const session = await response.json();
+            
+            // Initialize Stripe with your publishable key (LIVE MODE)
+            // IMPORTANT: Replace with your actual LIVE publishable key
+            const stripe = Stripe('pk_live_51SQFq4PJjyPRgJadtCEvuedWawUZDiB1mdmZTJQDM4U3c4OnF2NFf2DYAUSf7o4WVep4hzUwhw1Hd17KEaHltsMH00vVEDuCM3');
+            
+            // Redirect to Stripe Checkout
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id,
+            });
+            
+            if (result.error) {
+                throw new Error(result.error.message);
+            }
+        } catch (error) {
+            console.error('Checkout error:', error);
+            alert('There was an error processing your checkout. Please make sure the server is running and try again.\n\nError: ' + error.message);
+            
+            // Restore button state
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            checkoutBtn.textContent = 'Checkout';
+            checkoutBtn.disabled = false;
+        }
     }
 }
 

@@ -6,6 +6,7 @@
     <meta name="description" content="Shop handcrafted cement statues - meditating dogs, owls, and more">
     <title>Shop - Stellar Merit Statuary</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <!-- Navigation Menu -->
@@ -67,8 +68,34 @@
 
             <!-- Product Gallery Grid -->
             <div class="gallery-grid" id="galleryGrid">
-                <!-- Product Item 1 -->
-                <div class="gallery-item" data-category="dogs">
+                   <!-- Product Item 1 -->
+                <div class="gallery-item" data-category="lions" data-images='["images/products/lion-2.jpg","images/products/lion-3.jpg","images/products/lion-1.jpg","images/products/lion-4.jpg"]'>
+                    <div class="gallery-image" data-image="images/products/lion-2.jpg">
+                        <img src="images/products/lion-2.jpg" alt="Majestic Guardian Lion">
+                        <div class="gallery-overlay">
+                            <button class="view-btn">View Larger</button>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="product-title-row">
+                            <h3>Majestic Guardian Lion</h3>
+                            <p class="price">$125</p>
+                        </div>
+                        <p class="description">A serene cement dog statue in a meditative pose, perfect for creating a zen atmosphere in your garden or home.</p>
+                        <button class="btn btn-primary add-to-cart-btn" 
+                                data-id="1" 
+                                data-name="Majestic Guardian Lion" 
+                                data-price="125"
+                                data-price-id="prod_TOpnbfufGFr9w2"
+                                data-shipping-id="shr_YOUR_SHIPPING_RATE_ID_HERE_1"
+                                data-image="images/products/lion-2.jpg">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Item 2 -->
+                <div class="gallery-item" data-category="dogs" data-images='["images/products/meditating-dog-1.jpg","images/products/meditating-dog-1.jpg","images/products/meditating-dog-1.jpg","images/products/meditating-dog-1.jpg"]'>
                     <div class="gallery-image" data-image="images/products/meditating-dog-1.jpg">
                         <img src="images/products/meditating-dog-1.jpg" alt="Peaceful Meditating Dog Statue">
                         <div class="gallery-overlay">
@@ -85,16 +112,18 @@
                                 data-id="1" 
                                 data-name="Zen Meditating Dog" 
                                 data-price="19"
+                                data-price-id="prod_TOomiCsY1CxRSy"
+                                data-shipping-id="shr_1SS19WPJjyPRgJad3vRa9087"
                                 data-image="images/products/meditating-dog-1.jpg">
                             Add to Cart
                         </button>
                     </div>
                 </div>
 
-                <!-- Product Item 4 -->
-                <div class="gallery-item" data-category="owls">
-                    <div class="gallery-image" data-image="images/products/owl-1.jpg">
-                        <img src="images/products/owl-1.jpg" alt="Wise Owl Statue">
+                <!-- Product Item 3 -->
+                <div class="gallery-item" data-category="owls" data-images='["images/products/owls-1.jpg","images/products/owls-2.jpg","images/products/owls-3.jpg","images/products/owls-4.jpg"]'>
+                    <div class="gallery-image" data-image="images/products/owls-2.jpg">
+                        <img src="images/products/owls-1.jpg" alt="Wise Owl Statue">
                         <div class="gallery-overlay">
                             <button class="view-btn">View Larger</button>
                         </div>
@@ -109,7 +138,9 @@
                                 data-id="2" 
                                 data-name="Wise Owl Guardian" 
                                 data-price="22"
-                                data-image="images/products/owl-1.jpg">
+                                data-price-id="prod_TOnYvvBkNNp4H0"
+                                data-shipping-id="shr_1SS19WPJjyPRgJad3vRa9087"
+                                data-image="images/products/owls-1.jpg">
                             Add to Cart
                         </button>
                     </div>
@@ -142,7 +173,19 @@
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
-            <img src="" alt="" id="lightboxImage">
+            
+            <!-- Main Image Display -->
+            <div class="lightbox-main-image">
+                <button class="lightbox-nav-btn prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+                <img src="" alt="" id="lightboxImage">
+                <button class="lightbox-nav-btn next" id="lightboxNext" aria-label="Next image">›</button>
+            </div>
+            
+            <!-- Thumbnail Gallery -->
+            <div class="lightbox-thumbnails" id="lightboxThumbnails">
+                <!-- Thumbnails will be inserted here by JavaScript -->
+            </div>
+            
             <div class="lightbox-info">
                 <h3 id="lightboxTitle"></h3>
                 <p id="lightboxDescription"></p>
