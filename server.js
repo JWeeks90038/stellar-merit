@@ -165,7 +165,8 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 // ============================================
 // START SERVER
 // ============================================
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
     console.log('Stripe integration ready!');
+    console.log('CORS enabled for:', corsOptions.origin);
 });
