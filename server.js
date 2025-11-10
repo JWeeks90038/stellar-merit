@@ -6,16 +6,31 @@
 // Install dependencies:
 // npm install express stripe dotenv cors body-parser
 
-require('dotenv').config();
+// Load .env file only in local development (Railway uses environment variables directly)
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
+
+// Debug: Log all environment variable names (not values) to verify Railway is injecting them
+console.log('Environment check:');
+console.log('- NODE_ENV:', process.env.NODE_ENV || 'not set');
+console.log('- PORT:', process.env.PORT || 'not set');
+console.log('- STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY ? 'SET ✓' : 'NOT SET ✗');
 
 // Check if Stripe key is available
 if (!process.env.STRIPE_SECRET_KEY) {
-    console.error('ERROR: STRIPE_SECRET_KEY environment variable is not set!');
-    console.log('Make sure to set your STRIPE_SECRET_KEY in Railway dashboard');
+    console.error('\n❌ ERROR: STRIPE_SECRET_KEY environment variable is not set!');
+    console.log('\nIn Railway dashboard:');
+    console.log('1. Go to your project');
+    console.log('2. Click "Variables" tab');
+    console.log('3. Add variable: STRIPE_SECRET_KEY');
+    console.log('4. Redeploy the service\n');
     process.exit(1);
 }
 
+console.log('✓ Stripe key loaded successfully');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const cors = require('cors');
 const bodyParser = require('body-parser');
