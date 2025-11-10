@@ -74,6 +74,22 @@ app.use(express.static('.')); // Serve static files from current directory
 const PORT = process.env.PORT || 3000;
 
 // ============================================
+// HEALTH CHECK ENDPOINT
+// Railway uses this to verify the server is running
+// ============================================
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.get('/', (req, res) => {
+    res.status(200).json({ 
+        message: 'Stellar Merit Statuary API', 
+        status: 'running',
+        endpoints: ['/create-checkout-session', '/webhook', '/health']
+    });
+});
+
+// ============================================
 // CREATE CHECKOUT SESSION
 // Stripe Checkout redirect flow with Price IDs and Shipping Rates
 // ============================================
