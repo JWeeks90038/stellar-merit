@@ -15,7 +15,20 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Middleware
-app.use(cors());
+// Configure CORS to allow requests from your live domain
+const corsOptions = {
+    origin: [
+        'http://localhost:5500',
+        'http://localhost:3000',
+        'http://127.0.0.1:5500',
+        'https://stellarmeritstatuary.com',
+        'https://www.stellarmeritstatuary.com'
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.static('.')); // Serve static files from current directory
 
