@@ -851,7 +851,7 @@ class ShoppingCart {
             checkoutBtn.disabled = true;
             
             // Call backend to create checkout session
-            const response = await fetch('http://localhost:3000/create-checkout-session', {
+            const response = await fetch('https://stellar-merit-production.up.railway.app/create-checkout-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
