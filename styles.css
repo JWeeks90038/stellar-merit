@@ -1688,3 +1688,103 @@ section {
 .slide-in-up {
     animation: slideInUp var(--transition-medium);
 }
+
+/* ============================================
+   LEGAL PAGES STYLING
+   Professional styling for legal policy pages
+   ============================================ */
+
+.legal-content {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+}
+
+.legal-text {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    line-height: 1.8;
+}
+
+.legal-text h2 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.legal-text h2:first-child {
+    margin-top: 0;
+}
+
+.legal-text h3 {
+    color: var(--color-secondary);
+    font-size: 1.3rem;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.legal-text p {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    text-align: justify;
+}
+
+.legal-text ul,
+.legal-text ol {
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-lg);
+    color: var(--color-text);
+}
+
+.legal-text li {
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.8;
+}
+
+.legal-text ul li {
+    list-style-type: disc;
+}
+
+.legal-text ol li {
+    list-style-type: decimal;
+}
+
+.legal-text strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.legal-text a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.legal-text a:hover {
+    color: var(--color-primary);
+}
+
+/* Responsive adjustments for legal pages */
+@media (max-width: 768px) {
+    .legal-text {
+        padding: var(--spacing-md);
+        border-radius: 0;
+    }
+    
+    .legal-text h2 {
+        font-size: 1.5rem;
+    }
+    
+    .legal-text h3 {
+        font-size: 1.2rem;
+    }
+    
+    .legal-text p {
+        text-align: left;
+    }
+}
