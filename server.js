@@ -25,10 +25,13 @@ const corsOptions = {
         'https://www.stellarmeritstatuary.com'
     ],
     credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use(bodyParser.json());
 app.use(express.static('.')); // Serve static files from current directory
 
