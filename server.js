@@ -40,21 +40,38 @@ const app = express();
 // Middleware
 // Configure CORS to allow requests from your live domain
 const corsOptions = {
-    origin: [
-        'http://localhost:5500',
-        'http://localhost:3000',
-        'http://127.0.0.1:5500',
-        'https://stellarmeritstatuary.com',
-        'https://www.stellarmeritstatuary.com'
-    ],
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'http://localhost:5500',
+            'http://localhost:3000',
+            'http://127.0.0.1:5500',
+            'https://stellarmeritstatuary.com',
+            'https://www.stellarmeritstatuary.com'
+        ];
+        
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('CORS blocked origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    optionsSuccessStatus: 200
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposedHeaders: ['Content-Length', 'Content-Type'],
+    optionsSuccessStatus: 204,
+    maxAge: 86400 // 24 hours
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight requests
+
+// Explicit OPTIONS handler for preflight
+app.options('*', cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(express.static('.')); // Serve static files from current directory
 
@@ -168,5 +185,5 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
     console.log('Stripe integration ready!');
-    console.log('CORS enabled for:', corsOptions.origin);
+    console.log('CORS enabled for: stellarmeritstatuary.com and localhost');
 });
