@@ -37,40 +37,35 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// Middleware
-// Configure CORS to allow requests from your live domain
-const corsOptions = {
+// CORS Configuration - Must be before other middleware
+const allowedOrigins = [
+    'http://localhost:5500',
+    'http://localhost:3000',
+    'http://127.0.0.1:5500',
+    'https://stellarmeritstatuary.com',
+    'https://www.stellarmeritstatuary.com'
+];
+
+app.use(cors({
     origin: function (origin, callback) {
-        const allowedOrigins = [
-            'http://localhost:5500',
-            'http://localhost:3000',
-            'http://127.0.0.1:5500',
-            'https://stellarmeritstatuary.com',
-            'https://www.stellarmeritstatuary.com'
-        ];
-        
-        // Allow requests with no origin (like mobile apps or curl requests)
+        // Allow requests with no origin (mobile apps, Postman, etc.)
         if (!origin) return callback(null, true);
         
-        if (allowedOrigins.indexOf(origin) !== -1) {
+        if (allowedOrigins.includes(origin)) {
+            console.log('✓ CORS allowed for origin:', origin);
             callback(null, true);
         } else {
-            console.log('CORS blocked origin:', origin);
-            callback(new Error('Not allowed by CORS'));
+            console.log('✗ CORS blocked origin:', origin);
+            callback(null, false);
         }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
     exposedHeaders: ['Content-Length', 'Content-Type'],
-    optionsSuccessStatus: 204,
-    maxAge: 86400 // 24 hours
-};
-
-app.use(cors(corsOptions));
-
-// Explicit OPTIONS handler for preflight
-app.options('*', cors(corsOptions));
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+}));
 
 app.use(bodyParser.json());
 app.use(express.static('.')); // Serve static files from current directory
