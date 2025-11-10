@@ -68,7 +68,7 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-app.use(express.static('.')); // Serve static files from current directory
+// Remove static file serving - Railway is API only, static files on main hosting
 
 // Port configuration
 const PORT = process.env.PORT || 3000;
