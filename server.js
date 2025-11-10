@@ -8,6 +8,14 @@
 
 require('dotenv').config();
 const express = require('express');
+
+// Check if Stripe key is available
+if (!process.env.STRIPE_SECRET_KEY) {
+    console.error('ERROR: STRIPE_SECRET_KEY environment variable is not set!');
+    console.log('Make sure to set your STRIPE_SECRET_KEY in Railway dashboard');
+    process.exit(1);
+}
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -144,5 +152,5 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 // ============================================
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
-    console.log('Make sure to set your STRIPE_SECRET_KEY in .env file');
+    console.log('Stripe integration ready!');
 });
