@@ -193,8 +193,25 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 // ============================================
 // START SERVER
 // ============================================
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
     console.log('Stripe integration ready!');
     console.log('CORS enabled for: stellarmeritstatuary.com and localhost');
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+        console.log('HTTP server closed');
+        process.exit(0);
+    });
+});
+
+process.on('SIGINT', () => {
+    console.log('SIGINT signal received: closing HTTP server');
+    server.close(() => {
+        console.log('HTTP server closed');
+        process.exit(0);
+    });
 });
