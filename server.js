@@ -193,9 +193,10 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 // ============================================
 // START SERVER
 // ============================================
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
+    const address = server.address();
     console.log(`Server running on port ${PORT}`);
-    console.log('Listening on all network interfaces');
+    console.log(`Bound to: ${address.address}:${address.port}`);
     console.log('Stripe integration ready!');
     console.log('CORS enabled for: stellarmeritstatuary.com and localhost');
 });
