@@ -841,7 +841,14 @@ class ShoppingCart {
         }));
         
         // Collect all unique shipping rate IDs from the cart
-        const shippingRates = [...new Set(this.cart.map(item => item.shippingId).filter(id => id))];
+        // Handle multiple shipping IDs per item (comma-separated)
+        const shippingRates = [...new Set(
+            this.cart.flatMap(item => {
+                if (!item.shippingId) return [];
+                // Split comma-separated shipping IDs and trim whitespace
+                return item.shippingId.split(',').map(id => id.trim());
+            })
+        )];
         
         try {
             // Show loading state
