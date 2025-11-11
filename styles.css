@@ -400,6 +400,13 @@ img {
     font-weight: bold;
 }
 
+.cart-item-color {
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    font-style: italic;
+    margin: 2px 0;
+}
+
 .cart-item-quantity {
     display: flex;
     align-items: center;
@@ -735,6 +742,60 @@ section {
     font-size: 1.25rem;
     font-weight: bold;
     color: var(--color-accent);
+}
+
+/* Color Selection Styles */
+.color-selection {
+    margin: var(--spacing-sm) 0;
+}
+
+.color-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--spacing-xs);
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    border-color: var(--color-accent);
+}
+
+.color-swatch.active {
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+    transform: scale(1.05);
+}
+
+.color-swatch:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.selected-color-name {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
 }
 
 .add-to-cart-btn {

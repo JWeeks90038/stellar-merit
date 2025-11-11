@@ -367,15 +367,19 @@ class ContactForm {
         
         // Only initialize if form exists
         if (this.form) {
-            this.init();
+            // Don't intercept form submission - let Formspree handle it
+            // this.init();
         }
     }
     
     init() {
+        // Disabled to allow Formspree native handling
+        /*
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             this.submitForm();
         });
+        */
     }
     
     async submitForm() {
@@ -645,17 +649,50 @@ class ShoppingCart {
     }
     
     init() {
+        // Color swatch listeners
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        colorSwatches.forEach(swatch => {
+            swatch.addEventListener('click', (e) => {
+                const colorOptions = swatch.parentElement;
+                const colorSelection = colorOptions.parentElement;
+                const colorNameDisplay = colorSelection.querySelector('.selected-color-name');
+                const selectedColor = swatch.getAttribute('data-color');
+                
+                // Remove active class from all swatches in this product
+                colorOptions.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked swatch
+                swatch.classList.add('active');
+                
+                // Update color name display
+                if (colorNameDisplay) {
+                    colorNameDisplay.textContent = selectedColor;
+                }
+            });
+        });
+        
         // Add to cart button listeners
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
         addToCartButtons.forEach(button => {
             button.addEventListener('click', (e) => {
+                // Find the selected color for this product
+                const productCard = button.closest('.product-card');
+                let selectedColor = 'Light Gold'; // Default
+                if (productCard) {
+                    const activeColorSwatch = productCard.querySelector('.color-swatch.active');
+                    if (activeColorSwatch) {
+                        selectedColor = activeColorSwatch.getAttribute('data-color');
+                    }
+                }
+                
                 const productData = {
                     id: button.getAttribute('data-id'),
                     name: button.getAttribute('data-name'),
                     price: parseFloat(button.getAttribute('data-price')),
                     priceId: button.getAttribute('data-price-id'),
                     shippingId: button.getAttribute('data-shipping-id'),
-                    image: button.getAttribute('data-image')
+                    image: button.getAttribute('data-image'),
+                    color: selectedColor
                 };
                 this.addToCart(productData);
             });
@@ -687,8 +724,8 @@ class ShoppingCart {
     }
     
     addToCart(product) {
-        // Check if product already exists in cart
-        const existingItem = this.cart.find(item => item.id === product.id);
+        // Check if product with same ID and color already exists in cart
+        const existingItem = this.cart.find(item => item.id === product.id && item.color === product.color);
         
         if (existingItem) {
             existingItem.quantity += 1;
@@ -701,20 +738,20 @@ class ShoppingCart {
         
         this.saveCart();
         this.updateCartDisplay();
-        this.showAddedNotification(product.name);
+        this.showAddedNotification(product.name + ' - ' + product.color);
     }
     
-    removeFromCart(productId) {
-        this.cart = this.cart.filter(item => item.id !== productId);
+    removeFromCart(productId, color) {
+        this.cart = this.cart.filter(item => !(item.id === productId && item.color === color));
         this.saveCart();
         this.updateCartDisplay();
     }
     
-    updateQuantity(productId, newQuantity) {
-        const item = this.cart.find(item => item.id === productId);
+    updateQuantity(productId, color, newQuantity) {
+        const item = this.cart.find(item => item.id === productId && item.color === color);
         if (item) {
             if (newQuantity <= 0) {
-                this.removeFromCart(productId);
+                this.removeFromCart(productId, color);
             } else {
                 item.quantity = newQuantity;
                 this.saveCart();
@@ -740,14 +777,15 @@ class ShoppingCart {
                         <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                         <div class="cart-item-details">
                             <h4>${item.name}</h4>
+                            <p class="cart-item-color">${item.color || 'Light Gold'}</p>
                             <p class="cart-item-price">$${item.price}</p>
                             <div class="cart-item-quantity">
-                                <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                                <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', '${item.color}', ${item.quantity - 1})">-</button>
                                 <span>${item.quantity}</span>
-                                <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                                <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', '${item.color}', ${item.quantity + 1})">+</button>
                             </div>
                         </div>
-                        <button class="cart-item-remove" onclick="cart.removeFromCart('${item.id}')" aria-label="Remove item">
+                        <button class="cart-item-remove" onclick="cart.removeFromCart('${item.id}', '${item.color}')" aria-label="Remove item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
