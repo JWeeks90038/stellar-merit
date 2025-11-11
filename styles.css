@@ -744,6 +744,20 @@ section {
     color: var(--color-accent);
 }
 
+.product-description {
+    margin: var(--spacing-xs) 0;
+    color: var(--color-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.shipping-info {
+    margin: var(--spacing-xs) 0;
+    color: #27ae60;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 /* Color Selection Styles */
 .color-selection {
     margin: var(--spacing-sm) 0;
