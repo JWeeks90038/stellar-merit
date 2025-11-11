@@ -751,9 +751,12 @@ section {
 
 .about-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
     align-items: center;
+    justify-items: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .about-text {
@@ -1109,9 +1112,12 @@ section {
 
 .about-content-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-image-large img {
@@ -1124,6 +1130,10 @@ section {
     text-align: center;
     color: var(--color-text-secondary);
     font-style: italic;
+}
+
+.about-text-content {
+    text-align: center;
 }
 
 .about-text-content h2 {
