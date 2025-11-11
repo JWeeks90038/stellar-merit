@@ -367,19 +367,18 @@ class ContactForm {
         
         // Only initialize if form exists
         if (this.form) {
-            // Don't intercept form submission - let Formspree handle it
-            // this.init();
+            this.init();
         }
     }
     
     init() {
-        // Disabled to allow Formspree native handling
-        /*
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.submitForm();
-        });
-        */
+        // Check if form was successfully submitted (redirected back from Formspree)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            this.showMessage('success', 'Thank you for your message! We\'ll get back to you shortly.');
+            // Clear the URL parameter
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     }
     
     async submitForm() {
