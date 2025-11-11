@@ -372,12 +372,44 @@ class ContactForm {
     }
     
     init() {
-        // Check if form was successfully submitted (redirected back from Formspree)
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success') === 'true') {
-            this.showMessage('success', 'Thank you for your message! We\'ll get back to you shortly.');
-            // Clear the URL parameter
-            window.history.replaceState({}, document.title, window.location.pathname);
+        // Intercept form submission to use AJAX
+        this.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await this.submitForm();
+        });
+    }
+    
+    async submitForm() {
+        const formData = new FormData(this.form);
+        const submitButton = this.form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        try {
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            
+            // Submit to Formspree using AJAX
+            const response = await fetch(this.form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                this.showMessage('success', 'Thank you for your message! We\'ll get back to you shortly.');
+                this.form.reset();
+            } else {
+                throw new Error('Submission failed');
+            }
+        } catch (error) {
+            this.showMessage('error', 'Sorry, there was an error sending your message. Please try again or email us directly at stellarmerit@gmail.com');
+        } finally {
+            // Restore button
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
         }
     }
     
