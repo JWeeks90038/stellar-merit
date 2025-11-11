@@ -97,6 +97,10 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         const { lineItems, shippingRates } = req.body;
         
+        console.log('Checkout session request received:');
+        console.log('- Line Items:', JSON.stringify(lineItems, null, 2));
+        console.log('- Shipping Rates:', JSON.stringify(shippingRates, null, 2));
+        
         // Create session configuration
         const sessionConfig = {
             payment_method_types: ['card'],
@@ -115,6 +119,7 @@ app.post('/create-checkout-session', async (req, res) => {
             sessionConfig.shipping_options = shippingRates.map(rateId => ({
                 shipping_rate: rateId,
             }));
+            console.log('- Shipping Options:', JSON.stringify(sessionConfig.shipping_options, null, 2));
         }
         
         const session = await stripe.checkout.sessions.create(sessionConfig);
@@ -122,6 +127,7 @@ app.post('/create-checkout-session', async (req, res) => {
         res.json({ id: session.id });
     } catch (error) {
         console.error('Error creating checkout session:', error);
+        console.error('Error details:', error.message);
         res.status(500).json({ error: error.message });
     }
 });
