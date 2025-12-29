@@ -77,14 +77,18 @@ class Carousel {
     goToSlide(slideIndex) {
         // Remove active class from current slide and indicator
         this.slides[this.currentSlide].classList.remove('active');
-        this.indicators[this.currentSlide].classList.remove('active');
+        if (this.indicators[this.currentSlide]) {
+            this.indicators[this.currentSlide].classList.remove('active');
+        }
         
         // Update current slide index
         this.currentSlide = slideIndex;
         
         // Add active class to new slide and indicator
         this.slides[this.currentSlide].classList.add('active');
-        this.indicators[this.currentSlide].classList.add('active');
+        if (this.indicators[this.currentSlide]) {
+            this.indicators[this.currentSlide].classList.add('active');
+        }
     }
     
     nextSlide() {
