@@ -707,7 +707,7 @@ class ShoppingCart {
         addToCartButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 // Find the selected color for this product
-                const productCard = button.closest('.product-card');
+                const productCard = button.closest('.gallery-item');
                 let selectedColor = 'Light Gold'; // Default
                 if (productCard) {
                     const activeColorSwatch = productCard.querySelector('.color-swatch.active');
